@@ -18,10 +18,9 @@ const CharacterCardList = ({characters}) => {
                                        title="ImageTitle"/>
                             <CardContent className={classes.cardContent}>
                                 <Typography variant="h5" align="center" gutterBottom>{el.name}</Typography>
-                                <Typography align="center">{el.status}</Typography>
                             </CardContent>
                             <CardActions>
-                               <Link to="/characters/1"><Button size="small" color="primary">Show details</Button></Link>
+                               <Link to={`/characters/${el.id}`}><Button size="small" color="primary">Show details</Button></Link>
                                 <LayerIcon/>
                                 {/*<PlayCircleFilledIcon/>*/}
                             </CardActions>

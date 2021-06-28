@@ -3,8 +3,8 @@ import {connect} from "react-redux";
 import {withAppService} from "../hoc";
 import {fetchCharacters} from "../../redux/character-reducer";
 import compose from "../../utils/compose";
-import Preloader from "../../common/preloader/Preloader";
-import ErrorIndicator from "../../common/errorIndicator/ErrorIndicator";
+import Preloader from "../common/preloader/Preloader";
+import ErrorIndicator from "../common/errorIndicator/ErrorIndicator";
 import CharacterCardList from "./CharacterCardList";
 
 
@@ -17,9 +17,9 @@ class CharactersCardsListContainer extends Component {
     render() {
         const {characters, isLoading, error} = this.props;
         return (
-            error? <ErrorIndicator/> :
-            isLoading ? <Preloader/> :
-            <CharacterCardList characters={characters}/>
+            error ? <ErrorIndicator/> :
+                isLoading ? <Preloader/> :
+                    <CharacterCardList characters={characters}/>
         )
 
     }
@@ -30,7 +30,7 @@ const mapStateToProps = ({characters, isLoading, error}) => {
 }
 const mapDispatchToProps = (dispatch, {appService}) => {
     return {
-        fetchCharacters: fetchCharacters(appService,dispatch)
+        fetchCharacters: fetchCharacters(appService, dispatch)
     }
 
 }

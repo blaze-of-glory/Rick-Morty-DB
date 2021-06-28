@@ -1,5 +1,5 @@
-import Banner from "../../common/banner/Banner";
-import DescriptionBlock from "../../common/description-block/DecriptionBlock";
+import Banner from "../../components/common/banner/Banner";
+import DescriptionBlock from "../../components/common/description-block/DecriptionBlock";
 import CharactersCardsListContainer from "../../components/charactersBlock/CharactersCardsListContainer";
 
 

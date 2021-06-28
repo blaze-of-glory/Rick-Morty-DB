@@ -39,40 +39,32 @@ const example =
         "created": "2017-11-04T18:48:46.250Z"
     }
 
-const CardDetails = () => {
+const CardDetails = ({currentCharacter}) => {
+    console.log(currentCharacter,`aaa`)
     const classes = useStyles();
     return (
         <div className="cardDetails__Wrapper">
             <div className="cardDetails__Container">
                 <Container className={classes.cardGrid} maxWidth="lg">
                     <Grid container spacing={4} justify="center">
-                            <Grid item key={example.id} xs={12} sm={6} md={8}>
+                        { currentCharacter.map ((el) =>(
+                            <Grid item key={el.id} xs={12} sm={6} md={8}>
                                 <Card className={classes.card}>
-                                    <CardMedia className={classes.cardMedia} image={example.image}
+                                    <CardMedia className={classes.cardMedia} image={el.image}
                                                title="ImageTitle"/>
                                     <CardContent className={classes.cardContent}>
-                                        <Typography variant="h5" align="center" gutterBottom>{example.name}</Typography>
-                                        <Typography align="center">{example.status}</Typography>
-                                        <Typography align="center">{example.species}</Typography>
-                                        <Typography align="center">{example.gender}</Typography>
-                                        <Typography align="center">{example.location.name}</Typography>
+                                        <Typography variant="h5" align="center" gutterBottom>{el.name}</Typography>
+                                        <Typography align="center">{el.status}</Typography>
+                                        <Typography align="center">{el.species}</Typography>
+                                        <Typography align="center">{el.gender}</Typography>
+                                        <Typography align="center">{el.location.name}</Typography>
                                         <Typography align="center"><Link to="/">Вернуться к просмотру</Link></Typography>
 
                                     </CardContent>
                                 </Card>
-                            </Grid>
+                            </Grid> ))}
                     </Grid>
                 </Container>
-               {/* <Card className={classes.card}>
-                    <div className="cardDetails__imageContainer">
-                    <CardMedia className={classes.cardMedia} image={example.image}
-                               title="ImageTitle"/>
-                    </div>
-                    <CardContent className={classes.cardContent}>
-                        <Typography variant="h5" align="center" gutterBottom>{example.name}</Typography>
-                        <Typography>{example.status}</Typography>
-                    </CardContent>
-                </Card>*/}
             </div>
         </div>
     )

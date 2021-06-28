@@ -1,6 +1,5 @@
 import {Container, Grid, Paper, Typography} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import {useStyles} from "../../components/AppStyles";
+import {useStyles} from "../../AppStyles";
 
 const Banner = () => {
     const classes = useStyles();
@@ -15,7 +14,6 @@ const Banner = () => {
                                 Rick&Morty DB</Typography>
                             <Typography variant="h5" color="inherit" paragraph>Нужно придумать сюда какой-то
                                 текст.</Typography>
-                            <Button variant="contained" color="secondary"></Button>
                         </div>
                     </Grid>
                 </Grid>
