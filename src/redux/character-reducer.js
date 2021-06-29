@@ -1,5 +1,6 @@
 const SET_CHARACTERS = 'SET_CHARACTERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+const SET_TOTAL_PAGES_COUNT = 'SET_TOTAL_PAGES_COUNT';
 const SET_TOTAL_CHARACTERS_COUNT = 'SET_TOTAL_CHARACTERS_COUNT';
 const CHARACTERS_REQUESTED = 'CHARACTERS_REQUESTED';
 const SET_ERROR = 'SET_ERROR';
@@ -51,7 +52,8 @@ let initialState = {
     error: null,
     currentCharacterNumber: 1,
     currentCharacter: [],
-    currentPage: 3
+    currentPage: 1,
+    totalPagesCount: 5
 
 };
 
@@ -75,6 +77,9 @@ const characterReducer = (state = initialState, action) => {
         case SET_CURRENT_PAGE: {
             return {...state, currentPage: action.currentPage}
         }
+        case SET_TOTAL_PAGES_COUNT: {
+            return { ...state,totalPagesCount: action.totalPagesCount}
+        }
         case SET_TOTAL_CHARACTERS_COUNT: {
             return {...state, totalCharactersCount: action.totalCharactersCount}
         }
@@ -90,13 +95,17 @@ export const setCurrentCharacter = (currentCharacter) => ({type: SET_CURRENT_CHA
 export const charactersRequested = () => ({type: CHARACTERS_REQUESTED});
 export const setError = (error) => ({type: SET_ERROR, error});
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
-export const setTotalCharactersCount = (totalCharactersCount) => ({
+export const setTotalPageCount = (totalPagesCount) => ({type: SET_TOTAL_PAGES_COUNT, totalPagesCount});
+/*export const setTotalCharactersCount = (totalCharactersCount) => ({
     type: SET_TOTAL_CHARACTERS_COUNT,
     totalCharactersCount
-});
+});*/
 
 export const fetchCharacters =(appService,dispatch) =>(currentPage) => {
     dispatch(charactersRequested());
+    appService.getTotalPagesCount()
+        .then((data) => dispatch(setTotalPageCount(data)))
+        .catch((error) => dispatch(setError(error)))
     appService.getCharacters(currentPage)
         .then((data) => dispatch(setCharacters(data)))
         .catch((error) => dispatch(setError(error)))
@@ -109,12 +118,11 @@ export const fetchCurrentCharacter = (appService,dispatch) => (number,currentCha
         .catch((error) => dispatch(setError(error)))
 }
 
-/*export const fetchCurrentCharacter = (appService,dispatch) => (number) => {
-    dispatch(charactersRequested());
-    dispatch(setCurrentCharacterNumber(number));
-    appService.getCharacters()
-        .then((data) => dispatch(setCurrentCharacter(currentCharacterFiltration(data,number))))
-        .catch((error)=> dispatch(setError(error)))
-}*/
+export const fetchCurrentPage = (appService, dispatch) => (currentPage) => {
+    dispatch(setCurrentPage(currentPage))
+    appService.getCharacters(currentPage)
+        .then((data) => dispatch(setCharacters(data)))
+        .catch((error) => dispatch(setError(error)))
+}
 
 export default characterReducer;

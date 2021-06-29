@@ -1,7 +1,7 @@
 import {Component} from "react";
 import {connect} from "react-redux";
 import {withAppService} from "../hoc";
-import {fetchCharacters} from "../../redux/character-reducer";
+import {fetchCharacters, fetchCurrentPage} from "../../redux/character-reducer";
 import compose from "../../utils/compose";
 import Preloader from "../common/preloader/Preloader";
 import ErrorIndicator from "../common/errorIndicator/ErrorIndicator";
@@ -12,29 +12,34 @@ class CharactersCardsListContainer extends Component {
 
     componentDidMount() {
         const {
-            currentPage
+            currentPage,
         } = this.props;
         this.props.fetchCharacters(currentPage);
-        console.log(this.props,`aaa`)
     }
 
     render() {
-        const {characters, isLoading, error} = this.props;
+        const {characters, isLoading, error,totalPagesCount,currentPage,fetchCurrentPage} = this.props;
         return (
             error ? <ErrorIndicator/> :
                 isLoading ? <Preloader/> :
-                    <CharacterCardList characters={characters}/>
+                    <CharacterCardList
+                        characters={characters}
+                        totalPagesCount={totalPagesCount}
+                        currentPage={currentPage}
+                        fetchCurrentPage={fetchCurrentPage}
+                    />
         )
 
     }
 }
 
-const mapStateToProps = ({characters, isLoading, error,currentPage}) => {
-    return {characters, isLoading, error,currentPage}
+const mapStateToProps = ({characters, isLoading, error,currentPage,totalPagesCount,fetchCurrentPage,}) => {
+    return {characters, isLoading, error,currentPage,totalPagesCount,fetchCurrentPage,}
 }
 const mapDispatchToProps = (dispatch, {appService}) => {
     return {
-        fetchCharacters: fetchCharacters(appService, dispatch)
+        fetchCharacters: fetchCharacters(appService, dispatch),
+        fetchCurrentPage: fetchCurrentPage(appService, dispatch),
     }
 
 }

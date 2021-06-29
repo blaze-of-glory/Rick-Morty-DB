@@ -6,7 +6,10 @@ import {Link} from "react-router-dom";
 import {Pagination} from "@material-ui/lab";
 
 
-const CharacterCardList = ({characters}) => {
+const CharacterCardList = ({characters,totalPagesCount,currentPage,fetchCurrentPage}) => {
+    const showCurrentPage = (pageNumber) => {
+        fetchCurrentPage(pageNumber);
+    }
     const classes = useStyles();
     return (
         <Container className={classes.cardGrid} maxWidth="md">
@@ -23,7 +26,6 @@ const CharacterCardList = ({characters}) => {
                                 <Link to={`/characters/${el.id}`}><Button size="small" color="primary">Show
                                     details</Button></Link>
                                 <LayerIcon/>
-                                {/*<PlayCircleFilledIcon/>*/}
                             </CardActions>
                         </Card>
                     </Grid>
@@ -35,7 +37,9 @@ const CharacterCardList = ({characters}) => {
                 justify="center"
                 className={classes.pagination}
             >
-                <Pagination count={10} size="large"/>
+                <Pagination count={totalPagesCount} page={currentPage}
+                            onChange={(event,value) => {showCurrentPage(value)}}
+                            size="large"/>
             </Grid>
 
         </Container>

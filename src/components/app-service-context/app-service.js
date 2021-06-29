@@ -20,6 +20,12 @@ export default class AppService {
                 return response.data
             })
     }
+    getTotalPagesCount(){
+        return instance.get(`character`)
+            .then(response => {
+                return response.data.info.pages
+            })
+    }
     getNextPage(){}
     getPrevPage(){}
 
