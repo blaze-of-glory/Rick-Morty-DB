@@ -34,5 +34,8 @@ export const useStyles = makeStyles((theme) => ({
     },
     cardGrid: {
         marginTop: theme.spacing(4)
+    },
+    pagination: {
+        marginTop: theme.spacing(4)
     }
 }))

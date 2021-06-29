@@ -11,7 +11,11 @@ import CharacterCardList from "./CharacterCardList";
 class CharactersCardsListContainer extends Component {
 
     componentDidMount() {
-        this.props.fetchCharacters();
+        const {
+            currentPage
+        } = this.props;
+        this.props.fetchCharacters(currentPage);
+        console.log(this.props,`aaa`)
     }
 
     render() {
@@ -25,8 +29,8 @@ class CharactersCardsListContainer extends Component {
     }
 }
 
-const mapStateToProps = ({characters, isLoading, error}) => {
-    return {characters, isLoading, error}
+const mapStateToProps = ({characters, isLoading, error,currentPage}) => {
+    return {characters, isLoading, error,currentPage}
 }
 const mapDispatchToProps = (dispatch, {appService}) => {
     return {

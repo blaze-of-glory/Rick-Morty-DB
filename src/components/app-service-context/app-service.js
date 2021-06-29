@@ -1,5 +1,32 @@
+import * as axios from "axios";
+
+const instance = axios.create({
+    baseURL: "https://rickandmortyapi.com/api/"
+})
+
+
+
 export default class AppService {
-    data = [
+
+    getCharacters(currentPage) {
+        return instance.get(`character/?page=${currentPage}`)
+            .then(response => {
+                return response.data.results
+            })
+    }
+    getCurrentCharacter(currentCharacterNumber) {
+        return instance.get(`character/${currentCharacterNumber}`)
+            .then(response => {
+                return response.data
+            })
+    }
+    getNextPage(){}
+    getPrevPage(){}
+
+
+
+
+    /*data = [
         {
             "id": 1,
             "name": "Rick Sanchez",
@@ -383,16 +410,16 @@ export default class AppService {
             "url": "https://rickandmortyapi.com/api/character/20",
             "created": "2017-11-04T22:34:53.659Z"
         }
-    ]
+    ]*/
 
-    getCharacters() {
+    /*getCharacters() {
         return new Promise((resolve, reject) => {
             setTimeout(()=>{
                 resolve(this.data)
                 //reject(new Error('404'))
             },700)
         })
-    }
+    }*/
 
 
 

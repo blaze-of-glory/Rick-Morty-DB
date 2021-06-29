@@ -1,12 +1,12 @@
 import {useStyles} from "../AppStyles";
-import {Card, CardActions, CardContent, CardMedia, Container, Grid, Typography} from "@material-ui/core";
+import { Card, CardActions, CardContent, CardMedia, Container, Grid, Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import LayerIcon from "@material-ui/icons/Layers";
 import {Link} from "react-router-dom";
+import {Pagination} from "@material-ui/lab";
 
 
 const CharacterCardList = ({characters}) => {
-
     const classes = useStyles();
     return (
         <Container className={classes.cardGrid} maxWidth="md">
@@ -20,7 +20,8 @@ const CharacterCardList = ({characters}) => {
                                 <Typography variant="h5" align="center" gutterBottom>{el.name}</Typography>
                             </CardContent>
                             <CardActions>
-                               <Link to={`/characters/${el.id}`}><Button size="small" color="primary">Show details</Button></Link>
+                                <Link to={`/characters/${el.id}`}><Button size="small" color="primary">Show
+                                    details</Button></Link>
                                 <LayerIcon/>
                                 {/*<PlayCircleFilledIcon/>*/}
                             </CardActions>
@@ -28,6 +29,15 @@ const CharacterCardList = ({characters}) => {
                     </Grid>
                 ))}
             </Grid>
+            <Grid
+                container
+                direction="row"
+                justify="center"
+                className={classes.pagination}
+            >
+                <Pagination count={10} size="large"/>
+            </Grid>
+
         </Container>
     );
 }

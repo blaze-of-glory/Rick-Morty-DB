@@ -1,5 +1,3 @@
-import currentCharacterFiltration from "../utils/currentCharacterFiltration";
-
 const SET_CHARACTERS = 'SET_CHARACTERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_CHARACTERS_COUNT = 'SET_TOTAL_CHARACTERS_COUNT';
@@ -51,8 +49,9 @@ let initialState = {
     ],
     isLoading: true,
     error: null,
-    currentCharacterNumber: null,
+    currentCharacterNumber: 1,
     currentCharacter: [],
+    currentPage: 3
 
 };
 
@@ -96,18 +95,26 @@ export const setTotalCharactersCount = (totalCharactersCount) => ({
     totalCharactersCount
 });
 
-export const fetchCharacters =(appService,dispatch) =>() => {
+export const fetchCharacters =(appService,dispatch) =>(currentPage) => {
     dispatch(charactersRequested());
-    appService.getCharacters()
+    appService.getCharacters(currentPage)
         .then((data) => dispatch(setCharacters(data)))
         .catch((error) => dispatch(setError(error)))
 }
-export const fetchCurrentCharacter = (appService,dispatch) => (number) => {
+export const fetchCurrentCharacter = (appService,dispatch) => (number,currentCharacterNumber) => {
+    dispatch(charactersRequested());
+    dispatch(setCurrentCharacterNumber(number));
+    appService.getCurrentCharacter(currentCharacterNumber)
+        .then((data) => dispatch(setCurrentCharacter(data)))
+        .catch((error) => dispatch(setError(error)))
+}
+
+/*export const fetchCurrentCharacter = (appService,dispatch) => (number) => {
     dispatch(charactersRequested());
     dispatch(setCurrentCharacterNumber(number));
     appService.getCharacters()
         .then((data) => dispatch(setCurrentCharacter(currentCharacterFiltration(data,number))))
         .catch((error)=> dispatch(setError(error)))
-}
+}*/
 
 export default characterReducer;

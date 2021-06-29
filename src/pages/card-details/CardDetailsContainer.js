@@ -10,8 +10,11 @@ import {fetchCurrentCharacter,} from "../../redux/character-reducer";
 
 class CardDetailsContainer extends Component {
     componentDidMount() {
-        const currentID = this.props.match.params.id;
-        this.props.fetchCurrentCharacter(currentID);
+        const currentID = Number(this.props.match.params.id);
+        const {
+            currentCharacterNumber
+        } = this.props;
+        this.props.fetchCurrentCharacter(currentID,currentCharacterNumber);
     }
 
     render() {
