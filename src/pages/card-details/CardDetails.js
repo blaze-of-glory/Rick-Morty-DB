@@ -2,6 +2,7 @@ import {Card, CardContent, CardMedia, Container, Grid, Typography} from "@materi
 import {makeStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";
 import "./CardDetails.css";
+import Preloader from "../../components/common/preloader/Preloader";
 
 const useStyles = makeStyles((theme) => ({
     cardMedia: {
@@ -19,29 +20,36 @@ const useStyles = makeStyles((theme) => ({
 const CardDetails = ({currentCharacter}) => {
     const classes = useStyles();
     return (
-        <div className="cardDetails__Wrapper">
-            <div className="cardDetails__Container">
-                <Container className={classes.cardGrid} maxWidth="lg">
-                    <Grid container spacing={4} justify="center">
+        <>
+            {!currentCharacter && <Preloader/>}
+            {currentCharacter &&
+            <div className="cardDetails__Wrapper">
+                <div className="cardDetails__Container">
+                    <Container className={classes.cardGrid} maxWidth="lg">
+                        <Grid container spacing={4} justify="center">
                             <Grid item key={currentCharacter.id} xs={12} sm={6} md={8}>
                                 <Card className={classes.card}>
                                     <CardMedia className={classes.cardMedia} image={currentCharacter.image}
                                                title="ImageTitle"/>
                                     <CardContent className={classes.cardContent}>
-                                        <Typography variant="h5" align="center" gutterBottom>{currentCharacter.name}</Typography>
+                                        <Typography variant="h5" align="center"
+                                                    gutterBottom>{currentCharacter.name}</Typography>
                                         <Typography align="center">{currentCharacter.status}</Typography>
                                         <Typography align="center">{currentCharacter.species}</Typography>
                                         <Typography align="center">{currentCharacter.gender}</Typography>
                                         <Typography align="center">{currentCharacter.location.name}</Typography>
-                                        <Typography align="center"><Link to="/">Вернуться к просмотру</Link></Typography>
+                                        <Typography align="center"><Link to="/">Вернуться к
+                                            просмотру</Link></Typography>
 
                                     </CardContent>
                                 </Card>
                             </Grid>
-                    </Grid>
-                </Container>
+                        </Grid>
+                    </Container>
+                </div>
             </div>
-        </div>
+            }
+        </>
     )
 }
 

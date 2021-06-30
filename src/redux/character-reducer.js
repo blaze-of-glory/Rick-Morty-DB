@@ -50,8 +50,8 @@ let initialState = {
     ],
     isLoading: true,
     error: null,
-    currentCharacterNumber: 1,
-    currentCharacter: [],
+    currentCharacterNumber: null,
+    currentCharacter: null ,
     currentPage: 1,
     totalPagesCount: 5
 
@@ -96,10 +96,7 @@ export const charactersRequested = () => ({type: CHARACTERS_REQUESTED});
 export const setError = (error) => ({type: SET_ERROR, error});
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
 export const setTotalPageCount = (totalPagesCount) => ({type: SET_TOTAL_PAGES_COUNT, totalPagesCount});
-/*export const setTotalCharactersCount = (totalCharactersCount) => ({
-    type: SET_TOTAL_CHARACTERS_COUNT,
-    totalCharactersCount
-});*/
+
 
 export const fetchCharacters =(appService,dispatch) =>(currentPage) => {
     dispatch(charactersRequested());
@@ -113,7 +110,7 @@ export const fetchCharacters =(appService,dispatch) =>(currentPage) => {
 export const fetchCurrentCharacter = (appService,dispatch) => (number,currentCharacterNumber) => {
     dispatch(charactersRequested());
     dispatch(setCurrentCharacterNumber(number));
-    appService.getCurrentCharacter(currentCharacterNumber)
+    appService.getCurrentCharacter(number)
         .then((data) => dispatch(setCurrentCharacter(data)))
         .catch((error) => dispatch(setError(error)))
 }
