@@ -6,6 +6,7 @@ const CHARACTERS_REQUESTED = 'CHARACTERS_REQUESTED';
 const SET_ERROR = 'SET_ERROR';
 const SET_CURRENT_CHARACTER = 'SET_CURRENT_CHARACTER';
 const SET_CURRENT_CHARACTER_NUMBER = 'SET_CURRENT_CHARACTER_NUMBER';
+const SET_IS_COLUMN = 'SET_IS_COLUMN';
 
 let initialState = {
     characters: [
@@ -53,7 +54,8 @@ let initialState = {
     currentCharacterNumber: null,
     currentCharacter: null ,
     currentPage: 1,
-    totalPagesCount: 5
+    totalPagesCount: 5,
+    isColumn: false
 
 };
 
@@ -83,6 +85,9 @@ const characterReducer = (state = initialState, action) => {
         case SET_TOTAL_CHARACTERS_COUNT: {
             return {...state, totalCharactersCount: action.totalCharactersCount}
         }
+        case SET_IS_COLUMN: {
+            return {...state, isColumn: action.isColumn}
+        }
 
         default:
             return state;
@@ -96,6 +101,7 @@ export const charactersRequested = () => ({type: CHARACTERS_REQUESTED});
 export const setError = (error) => ({type: SET_ERROR, error});
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
 export const setTotalPageCount = (totalPagesCount) => ({type: SET_TOTAL_PAGES_COUNT, totalPagesCount});
+export const setIsColumn = (isColumn) => ({type: SET_IS_COLUMN, isColumn})
 
 
 export const fetchCharacters =(appService,dispatch) =>(currentPage) => {
@@ -122,4 +128,7 @@ export const fetchCurrentPage = (appService, dispatch) => (currentPage) => {
         .catch((error) => dispatch(setError(error)))
 }
 
+export const fetchIsColumn = (dispatch) => (isColumn) => {
+    dispatch(setIsColumn(isColumn))
+}
 export default characterReducer;

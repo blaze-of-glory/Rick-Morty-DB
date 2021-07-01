@@ -37,5 +37,8 @@ export const useStyles = makeStyles((theme) => ({
     },
     pagination: {
         marginTop: theme.spacing(4)
+    },
+    switchDisplayBtns: {
+        marginBottom: theme.spacing(4)
     }
 }))

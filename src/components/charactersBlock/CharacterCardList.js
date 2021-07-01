@@ -1,19 +1,74 @@
 import {useStyles} from "../AppStyles";
-import { Card, CardActions, CardContent, CardMedia, Container, Grid, Typography} from "@material-ui/core";
+import {
+    ButtonBase, ButtonGroup,
+    Card,
+    CardActions,
+    CardContent,
+    CardMedia,
+    Container,
+    Grid,
+    Paper,
+    Typography
+} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import LayerIcon from "@material-ui/icons/Layers";
 import {Link} from "react-router-dom";
 import {Pagination} from "@material-ui/lab";
 
 
-const CharacterCardList = ({characters,totalPagesCount,currentPage,fetchCurrentPage}) => {
+
+const CharacterCardList = ({characters, totalPagesCount, currentPage, fetchCurrentPage, isColumn, fetchIsColumn}) => {
     const showCurrentPage = (pageNumber) => {
         fetchCurrentPage(pageNumber);
     }
+    const toggleHandler = (isColumn) => {
+        fetchIsColumn(isColumn)
+    }
     const classes = useStyles();
     return (
-        <Container className={classes.cardGrid} maxWidth="md">
-            <Grid container spacing={4}>
+        <Container className={classes.cardGrid} maxWidth="lg">
+            <Typography align="center" className={classes.switchDisplayBtns}>
+                <ButtonGroup color="primary" aria-label="outlined primary button group">
+                    <Button onClick={() => toggleHandler(true)}>Table</Button>
+                    <Button onClick={() => toggleHandler(false)}>Plates</Button>
+                </ButtonGroup>
+            </Typography>
+
+            {isColumn ? <div className={classes.root}>
+                <Paper className={classes.paper}>
+                    {characters.map((el) => (
+                        <Grid container spacing={2} key={el.id}>
+                            <Grid item>
+                                <ButtonBase className={classes.image}>
+                                    <img className={classes.img} alt="complex"
+                                         src={el.image}/>
+                                </ButtonBase>
+                            </Grid>
+                            <Grid item xs={12} sm container>
+                                <Grid item xs container direction="column" spacing={2} key={el.id}>
+                                    <Grid item xs>
+                                        <Typography gutterBottom variant="h5" align="center">
+                                            Сведения
+                                        </Typography>
+                                        <Typography variant="body1" align="center" gutterBottom>
+                                            {el.name}
+                                        </Typography>
+                                        <Typography variant="body1" align="center" gutterBottom>
+                                            {el.gender}
+                                        </Typography>
+                                        <Typography variant="body1" align="center" gutterBottom>
+                                            {el.status}
+                                        </Typography>
+                                        <Typography variant="body1" align="center" gutterBottom>
+                                            {el.location.name}
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    ))}
+                </Paper>
+            </div> : <Grid container spacing={4}>
                 {characters.map((el) => (
                     <Grid item key={el.id} xs={12} sm={6} md={4}>
                         <Card className={classes.card}>
@@ -30,7 +85,8 @@ const CharacterCardList = ({characters,totalPagesCount,currentPage,fetchCurrentP
                         </Card>
                     </Grid>
                 ))}
-            </Grid>
+            </Grid>}
+
             <Grid
                 container
                 direction="row"
@@ -38,7 +94,9 @@ const CharacterCardList = ({characters,totalPagesCount,currentPage,fetchCurrentP
                 className={classes.pagination}
             >
                 <Pagination count={totalPagesCount} page={currentPage}
-                            onChange={(event,value) => {showCurrentPage(value)}}
+                            onChange={(event, value) => {
+                                showCurrentPage(value)
+                            }}
                             size="large"/>
             </Grid>
 
