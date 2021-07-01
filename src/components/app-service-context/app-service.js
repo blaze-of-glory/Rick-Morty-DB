@@ -8,8 +8,8 @@ const instance = axios.create({
 
 export default class AppService {
 
-    getCharacters(currentPage) {
-        return instance.get(`character/?page=${currentPage}`)
+    getCharacters(currentPage,searchValue) {
+        return instance.get(`character/?page=${currentPage}&name=${searchValue?searchValue:''}`)
             .then(response => {
                 return response.data.results
             })

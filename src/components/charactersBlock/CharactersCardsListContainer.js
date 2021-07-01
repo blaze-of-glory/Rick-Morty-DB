@@ -13,8 +13,9 @@ class CharactersCardsListContainer extends Component {
     componentDidMount() {
         const {
             currentPage,
+            searchValue
         } = this.props;
-        this.props.fetchCharacters(currentPage);
+        this.props.fetchCharacters(currentPage,searchValue);
     }
 
     render() {
@@ -35,8 +36,9 @@ class CharactersCardsListContainer extends Component {
     }
 }
 
-const mapStateToProps = ({characters, isLoading, error,currentPage,totalPagesCount,fetchCurrentPage,isColumn}) => {
-    return {characters, isLoading, error,currentPage,totalPagesCount,fetchCurrentPage,isColumn}
+const mapStateToProps = (
+    {characters, isLoading, error,currentPage,totalPagesCount,fetchCurrentPage,isColumn,searchValue}) => {
+    return {characters, isLoading, error,currentPage,totalPagesCount,fetchCurrentPage,isColumn,searchValue}
 }
 const mapDispatchToProps = (dispatch, {appService}) => {
     return {

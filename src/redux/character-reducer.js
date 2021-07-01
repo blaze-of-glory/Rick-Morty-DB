@@ -7,55 +7,18 @@ const SET_ERROR = 'SET_ERROR';
 const SET_CURRENT_CHARACTER = 'SET_CURRENT_CHARACTER';
 const SET_CURRENT_CHARACTER_NUMBER = 'SET_CURRENT_CHARACTER_NUMBER';
 const SET_IS_COLUMN = 'SET_IS_COLUMN';
+const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';
 
 let initialState = {
-    characters: [
-        {
-            "id": 1,
-            "name": "Rick Sanchez",
-            "status": "Alive",
-            "species": "Human",
-            "type": "",
-            "gender": "Male",
-            "origin": {
-                "name": "Earth (C-137)",
-                "url": "https://rickandmortyapi.com/api/location/1"
-            },
-            "location": {
-                "name": "Earth (Replacement Dimension)",
-                "url": "https://rickandmortyapi.com/api/location/20"
-            },
-            "image": "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-            "url": "https://rickandmortyapi.com/api/character/1",
-            "created": "2017-11-04T18:48:46.250Z"
-        },
-        {
-            "id": 2,
-            "name": "Morty Smith",
-            "status": "Alive",
-            "species": "Human",
-            "type": "",
-            "gender": "Male",
-            "origin": {
-                "name": "Earth (C-137)",
-                "url": "https://rickandmortyapi.com/api/location/1"
-            },
-            "location": {
-                "name": "Earth (Replacement Dimension)",
-                "url": "https://rickandmortyapi.com/api/location/20"
-            },
-            "image": "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
-            "url": "https://rickandmortyapi.com/api/character/2",
-            "created": "2017-11-04T18:50:21.651Z"
-        }
-    ],
+    characters: [],
     isLoading: true,
     error: null,
     currentCharacterNumber: null,
     currentCharacter: null ,
     currentPage: 1,
     totalPagesCount: 5,
-    isColumn: false
+    isColumn: false,
+    searchValue: '',
 
 };
 
@@ -88,6 +51,9 @@ const characterReducer = (state = initialState, action) => {
         case SET_IS_COLUMN: {
             return {...state, isColumn: action.isColumn}
         }
+        case SET_SEARCH_VALUE: {
+            return {...state, searchValue: action.searchValue}
+        }
 
         default:
             return state;
@@ -101,15 +67,16 @@ export const charactersRequested = () => ({type: CHARACTERS_REQUESTED});
 export const setError = (error) => ({type: SET_ERROR, error});
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
 export const setTotalPageCount = (totalPagesCount) => ({type: SET_TOTAL_PAGES_COUNT, totalPagesCount});
-export const setIsColumn = (isColumn) => ({type: SET_IS_COLUMN, isColumn})
+export const setIsColumn = (isColumn) => ({type: SET_IS_COLUMN, isColumn});
+export const setSearchValue = (searchValue) => ({type: SET_SEARCH_VALUE, searchValue});
 
 
-export const fetchCharacters =(appService,dispatch) =>(currentPage) => {
+export const fetchCharacters =(appService,dispatch) =>(currentPage,searchValue) => {
     dispatch(charactersRequested());
     appService.getTotalPagesCount()
         .then((data) => dispatch(setTotalPageCount(data)))
         .catch((error) => dispatch(setError(error)))
-    appService.getCharacters(currentPage)
+    appService.getCharacters(currentPage,searchValue)
         .then((data) => dispatch(setCharacters(data)))
         .catch((error) => dispatch(setError(error)))
 }
@@ -131,4 +98,9 @@ export const fetchCurrentPage = (appService, dispatch) => (currentPage) => {
 export const fetchIsColumn = (dispatch) => (isColumn) => {
     dispatch(setIsColumn(isColumn))
 }
+
+export  const fetchSearchValue = (dispatch) => (searchValue) => {
+    dispatch(setSearchValue(searchValue))
+}
+
 export default characterReducer;
