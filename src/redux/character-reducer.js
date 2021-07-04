@@ -14,14 +14,15 @@ let initialState = {
     isLoading: true,
     error: null,
     currentCharacterNumber: null,
-    currentCharacter: null ,
+    currentCharacter: [],
     currentPage: 1,
+    pageSize: 6,
     totalPagesCount: 5,
     isColumn: false,
     searchValue: '',
+    totalCharactersCount: 10,
 
 };
-
 const characterReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_CHARACTERS: {
@@ -66,20 +67,25 @@ export const setCurrentCharacter = (currentCharacter) => ({type: SET_CURRENT_CHA
 export const charactersRequested = () => ({type: CHARACTERS_REQUESTED});
 export const setError = (error) => ({type: SET_ERROR, error});
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
-export const setTotalPageCount = (totalPagesCount) => ({type: SET_TOTAL_PAGES_COUNT, totalPagesCount});
+export const setTotalCharactersCount = (totalCharactersCount) => ({type:SET_TOTAL_CHARACTERS_COUNT, totalCharactersCount});
+export const setTotalPagesCount = (totalPagesCount) => ({type: SET_TOTAL_PAGES_COUNT, totalPagesCount});
 export const setIsColumn = (isColumn) => ({type: SET_IS_COLUMN, isColumn});
 export const setSearchValue = (searchValue) => ({type: SET_SEARCH_VALUE, searchValue});
 
 
-export const fetchCharacters =(appService,dispatch) =>(currentPage,searchValue) => {
+export const fetchCharacters =(appService,dispatch) =>(pageSize,currentPage,characters) => {
     dispatch(charactersRequested());
-    appService.getTotalPagesCount()
+    /*appService.getTotalPagesCount()
         .then((data) => dispatch(setTotalPageCount(data)))
-        .catch((error) => dispatch(setError(error)))
-    appService.getCharacters(currentPage,searchValue)
+        .catch((error) => dispatch(setError(error)))*/
+    appService.getCharacters(pageSize,currentPage)
         .then((data) => dispatch(setCharacters(data)))
         .catch((error) => dispatch(setError(error)))
+    appService.getTotalCount()
+        .then((data) => dispatch(setTotalCharactersCount(data)))
+        .catch((error) => dispatch(setError(error)))
 }
+
 export const fetchCurrentCharacter = (appService,dispatch) => (number,currentCharacterNumber) => {
     dispatch(charactersRequested());
     dispatch(setCurrentCharacterNumber(number));
@@ -101,6 +107,21 @@ export const fetchIsColumn = (dispatch) => (isColumn) => {
 
 export  const fetchSearchValue = (dispatch) => (searchValue) => {
     dispatch(setSearchValue(searchValue))
+}
+
+export const fetchSearchResult = (appService, dispatch) => (pageSize,currentPage,searchValue) => {
+    dispatch(charactersRequested());
+    appService.getSearchedCharacters(pageSize,currentPage,searchValue)
+        .then((data) => dispatch(setCharacters(data)))
+        .catch((error) => dispatch(setError(error)))
+}
+
+export const fetchTotalCharactersCount = (dispatch) => (characters) => {
+    dispatch(setTotalCharactersCount(characters.length));
+}
+
+export const fetchTotalPagesCount = (dispatch) => (totalPagesCount)  => {
+    dispatch(setTotalPagesCount(totalPagesCount));
 }
 
 export default characterReducer;

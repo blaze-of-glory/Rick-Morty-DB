@@ -18,26 +18,27 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const CardDetails = ({currentCharacter}) => {
+  const character= currentCharacter[0]
     const classes = useStyles();
     return (
         <>
-            {!currentCharacter && <Preloader/>}
-            {currentCharacter &&
+            {!character && <Preloader/>}
+            {character &&
             <div className="cardDetails__Wrapper">
                 <div className="cardDetails__Container">
                     <Container className={classes.cardGrid} maxWidth="lg">
                         <Grid container spacing={4} justify="center">
-                            <Grid item key={currentCharacter.id} xs={12} sm={6} md={8}>
+                            <Grid item key={character.id} xs={12} sm={6} md={8}>
                                 <Card className={classes.card}>
-                                    <CardMedia className={classes.cardMedia} image={currentCharacter.image}
+                                    <CardMedia className={classes.cardMedia} image={character.image}
                                                title="ImageTitle"/>
                                     <CardContent className={classes.cardContent}>
                                         <Typography variant="h5" align="center"
-                                                    gutterBottom>{currentCharacter.name}</Typography>
-                                        <Typography align="center">{currentCharacter.status}</Typography>
-                                        <Typography align="center">{currentCharacter.species}</Typography>
-                                        <Typography align="center">{currentCharacter.gender}</Typography>
-                                        <Typography align="center">{currentCharacter.location.name}</Typography>
+                                                    gutterBottom>{character.name}</Typography>
+                                        <Typography align="center">{character.status}</Typography>
+                                        <Typography align="center">{character.species}</Typography>
+                                        <Typography align="center">{character.gender}</Typography>
+                                        <Typography align="center">{character.location.name}</Typography>
                                         <Typography align="center"><Link to="/">Вернуться к
                                             просмотру</Link></Typography>
 

@@ -18,6 +18,7 @@ import {Pagination} from "@material-ui/lab";
 
 
 const CharacterCardList = ({characters, totalPagesCount, currentPage, fetchCurrentPage, isColumn, fetchIsColumn}) => {
+    console.log(characters,`отсортированные данные в компоненте`)
     const showCurrentPage = (pageNumber) => {
         fetchCurrentPage(pageNumber);
     }

@@ -3,31 +3,35 @@ import Header from "./Header";
 import compose from "../utils/compose";
 import {withAppService} from "../components/hoc";
 import {connect} from "react-redux";
-import {fetchCharacters, fetchSearchValue} from "../redux/character-reducer";
+import { fetchSearchResult, fetchSearchValue} from "../redux/character-reducer";
 
 
 class HeaderContainer extends Component {
     componentDidMount() {
+        const {pageSize,currentPage,searchValue} = this.props;
+        this.props.fetchSearchResult(pageSize,currentPage,searchValue);
     }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.props.fetchSearchResult(this.props.searchValue);
+    }
+
     render() {
-        const {searchValue,currentPage, fetchSearchValue,fetchCharacters} = this.props;
+        const {searchValue, fetchSearchValue} = this.props;
         return <Header
             searchValue={searchValue}
-            currentPage={currentPage}
             fetchSearchValue={fetchSearchValue}
-            fetchCharacters={fetchCharacters}
         />
     }
 }
 
-const mapStateToProps = ({searchValue,currentPage}) => {
-    return {searchValue,currentPage}
+const mapStateToProps = ({searchValue}) => {
+    return {searchValue}
 }
 
 const mapDispatchToProps = (dispatch, {appService}) => {
     return {
         fetchSearchValue: fetchSearchValue(dispatch),
-        fetchCharacters: fetchCharacters(appService,dispatch)
+        fetchSearchResult: fetchSearchResult(appService,dispatch)
     }
 }
 

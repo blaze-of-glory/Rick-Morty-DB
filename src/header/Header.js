@@ -5,11 +5,10 @@ import {useStyles} from "../components/AppStyles";
 import SearchIcon from '@material-ui/icons/Search';
 
 
-const Header = ({searchValue,currentPage,fetchSearchValue,fetchCharacters}) => {
+const Header = ({searchValue,fetchSearchValue}) => {
     const classes = useStyles();
     const handleSearch = (e) => {
         fetchSearchValue(e.target.value)
-        e.target.value?fetchCharacters(currentPage,searchValue):fetchCharacters(currentPage)
     }
     return(
         <AppBar position="fixed">
