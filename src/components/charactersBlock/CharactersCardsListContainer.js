@@ -11,34 +11,32 @@ import compose from "../../utils/compose";
 import Preloader from "../common/preloader/Preloader";
 import ErrorIndicator from "../common/errorIndicator/ErrorIndicator";
 import CharacterCardList from "./CharacterCardList";
+import paginationFiltration from "../../utils/paginationFiltration";
 
 
 class CharactersCardsListContainer extends Component {
 
     componentDidMount() {
-        this.props.fetchCharacters(this.props.pageSize,this.props.currentPage,this.props.characters);
+        this.props.fetchCharacters();
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.searchValue.length > 0){
-            this.props.fetchTotalCharactersCount(this.props.characters);
-        }
+        console.log(`did upd list`);
+        this.props.fetchTotalCharactersCount(this.props.characters);
         const pagesCount = Math.ceil(this.props.totalCharactersCount/this.props.pageSize);
         this.props.fetchTotalPagesCount(pagesCount);
-        if(this.props.currentPage !== prevProps.currentPage) {
-            this.props.fetchCharacters(this.props.pageSize,this.props.currentPage,this.props.characters);
+        if(this.props.searchValue.length === 0 && prevProps.searchValue !== this.props.searchValue) {
+            this.props.fetchCharacters();
         }
     }
 
     render() {
         const {characters, isLoading, error,totalPagesCount,
-            currentPage,fetchCurrentPage,isColumn,fetchIsColumn,} = this.props;
-
-        console.log(totalPagesCount);
+            currentPage,fetchCurrentPage,isColumn,fetchIsColumn,pageSize} = this.props;
         return (
             error ? <ErrorIndicator/> :
                 isLoading ? <Preloader/> :
                     <CharacterCardList
-                        characters={characters}
+                        characters={paginationFiltration(characters,pageSize,currentPage)}
                         totalPagesCount={totalPagesCount}
                         currentPage={currentPage}
                         fetchCurrentPage={fetchCurrentPage}

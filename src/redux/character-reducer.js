@@ -73,16 +73,10 @@ export const setIsColumn = (isColumn) => ({type: SET_IS_COLUMN, isColumn});
 export const setSearchValue = (searchValue) => ({type: SET_SEARCH_VALUE, searchValue});
 
 
-export const fetchCharacters =(appService,dispatch) =>(pageSize,currentPage,characters) => {
+export const fetchCharacters =(appService,dispatch) =>() => {
     dispatch(charactersRequested());
-    /*appService.getTotalPagesCount()
-        .then((data) => dispatch(setTotalPageCount(data)))
-        .catch((error) => dispatch(setError(error)))*/
-    appService.getCharacters(pageSize,currentPage)
+    appService.getCharacters()
         .then((data) => dispatch(setCharacters(data)))
-        .catch((error) => dispatch(setError(error)))
-    appService.getTotalCount()
-        .then((data) => dispatch(setTotalCharactersCount(data)))
         .catch((error) => dispatch(setError(error)))
 }
 
@@ -109,9 +103,9 @@ export  const fetchSearchValue = (dispatch) => (searchValue) => {
     dispatch(setSearchValue(searchValue))
 }
 
-export const fetchSearchResult = (appService, dispatch) => (pageSize,currentPage,searchValue) => {
+export const fetchSearchResult = (appService, dispatch) => (searchValue) => {
     dispatch(charactersRequested());
-    appService.getSearchedCharacters(pageSize,currentPage,searchValue)
+    appService.getSearchedCharacters(searchValue)
         .then((data) => dispatch(setCharacters(data)))
         .catch((error) => dispatch(setError(error)))
 }

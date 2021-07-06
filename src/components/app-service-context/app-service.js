@@ -388,18 +388,10 @@ export default class AppService {
         }
     ]
 
-    getCharacters(pageSize,currentPage) {
+    getCharacters() {
         return new Promise((resolve, reject) => {
             setTimeout(()=>{
-                resolve(paginationFiltration(this.data,pageSize,currentPage))
-                //reject(new Error('404'))
-            },700)
-        })
-    }
-    getTotalCount() {
-        return new Promise((resolve, reject) => {
-            setTimeout(()=>{
-                resolve(this.data.length)
+                resolve(this.data)
                 //reject(new Error('404'))
             },700)
         })
