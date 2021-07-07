@@ -17,20 +17,31 @@ import {Pagination} from "@material-ui/lab";
 
 
 
-const CharacterCardList = ({characters, totalPagesCount, currentPage, fetchCurrentPage, isColumn, fetchIsColumn}) => {
+const CharacterCardList = ({characters, totalPagesCount, currentPage, fetchCurrentPage, isColumn, fetchIsColumn,isSortedByName,fetchIsSortedByName}) => {
     const showCurrentPage = (pageNumber) => {
         fetchCurrentPage(pageNumber);
     }
     const toggleHandler = (isColumn) => {
         fetchIsColumn(isColumn)
     }
+    const sortHandler = (isSortedByName) => {
+        fetchIsSortedByName(isSortedByName)
+    }
     const classes = useStyles();
     return (
         <Container className={classes.cardGrid} maxWidth="lg">
             <Typography align="center" className={classes.switchDisplayBtns}>
                 <ButtonGroup color="primary" aria-label="outlined primary button group">
-                    <Button onClick={() => toggleHandler(true)}>Table</Button>
-                    <Button onClick={() => toggleHandler(false)}>Plates</Button>
+                    {isColumn?<Button onClick={() => toggleHandler(false)}>Plates</Button>
+                    :
+                    <Button onClick={() => toggleHandler(true)}>Table</Button>}
+                </ButtonGroup>
+            </Typography>
+            <Typography align="center" className={classes.switchDisplayBtns}>
+                <ButtonGroup color="primary" aria-label="outlined primary button group">
+                   {isSortedByName?<Button onClick={() => sortHandler(false)}>Отсортировать по id</Button>
+                   :
+                   <Button onClick={() => sortHandler(true)}>Отсортировать по имени</Button>}
                 </ButtonGroup>
             </Typography>
 

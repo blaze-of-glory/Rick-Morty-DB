@@ -5,7 +5,9 @@ import {
     fetchCharacters,
     fetchCurrentPage,
     fetchIsColumn,
-    fetchTotalCharactersCount, fetchTotalPagesCount
+    fetchTotalCharactersCount,
+    fetchTotalPagesCount,
+    fetchIsSortedByName
 } from "../../redux/character-reducer";
 import compose from "../../utils/compose";
 import Preloader from "../common/preloader/Preloader";
@@ -30,7 +32,16 @@ class CharactersCardsListContainer extends Component {
 
     render() {
         const {characters, isLoading, error,totalPagesCount,
-            currentPage,fetchCurrentPage,isColumn,fetchIsColumn,pageSize} = this.props;
+            currentPage,fetchCurrentPage,isColumn,fetchIsColumn,
+            pageSize,isSortedByName,fetchIsSortedByName} = this.props;
+            if(isSortedByName){
+                characters.sort((prev, next) => {
+                    if ( prev.name < next.name ) return -1;
+                    if ( prev.name < next.name ) return 1;
+                });
+            } else {
+                characters.sort((prev, next) => prev.id - next.id);
+            }
         return (
             error ? <ErrorIndicator/> :
                 isLoading ? <Preloader/> :
@@ -41,6 +52,10 @@ class CharactersCardsListContainer extends Component {
                         fetchCurrentPage={fetchCurrentPage}
                         isColumn={isColumn}
                         fetchIsColumn={fetchIsColumn}
+                        isSortedByName={isSortedByName}
+                        fetchIsSortedByName={fetchIsSortedByName}
+                        
+                        
                     />
         )
 
@@ -50,9 +65,9 @@ class CharactersCardsListContainer extends Component {
 const mapStateToProps = (
     {characters, isLoading, error,currentPage,totalPagesCount,
         fetchCurrentPage,isColumn,searchValue,pageSize,
-        totalCharactersCount}) => {
+        totalCharactersCount,isSortedByName}) => {
     return {characters, isLoading, error,currentPage,totalPagesCount,
-        fetchCurrentPage,isColumn,searchValue,pageSize,totalCharactersCount}
+        fetchCurrentPage,isColumn,searchValue,pageSize,totalCharactersCount,isSortedByName}
 }
 const mapDispatchToProps = (dispatch, {appService}) => {
     return {
@@ -61,6 +76,7 @@ const mapDispatchToProps = (dispatch, {appService}) => {
         fetchIsColumn: fetchIsColumn(dispatch),
         fetchTotalCharactersCount: fetchTotalCharactersCount(dispatch),
         fetchTotalPagesCount: fetchTotalPagesCount(dispatch),
+        fetchIsSortedByName: fetchIsSortedByName(dispatch),
     }
 
 }
