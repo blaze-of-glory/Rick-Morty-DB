@@ -76,5 +76,9 @@ export const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('md')]: {
             width: '20ch',
         }
-    }
+    },
+    filtrationField: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+      },
 }))

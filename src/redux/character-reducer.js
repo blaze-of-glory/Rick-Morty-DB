@@ -9,6 +9,8 @@ const SET_CURRENT_CHARACTER_NUMBER = 'SET_CURRENT_CHARACTER_NUMBER';
 const SET_IS_COLUMN = 'SET_IS_COLUMN';
 const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';
 const SET_IS_SORTED_BY_NAME = 'SET_IS_SORTED_BY_NAME';
+const SET_IS_FILTRATION_OPEN = 'SET_IS_FILTRATION_OPEN';
+const SET_FILTRATION_PARAM = 'SET_FILTRATION_PARAM';
 
 let initialState = {
     characters: [],
@@ -23,6 +25,8 @@ let initialState = {
     searchValue: '',
     totalCharactersCount: 10,
     isSortedByName: false,
+    filtrationParam: 'all',
+    isFiltationOpen: false,
 
 };
 const characterReducer = (state = initialState, action) => {
@@ -60,7 +64,12 @@ const characterReducer = (state = initialState, action) => {
         case SET_IS_SORTED_BY_NAME: {
             return {...state, isSortedByName: action.isSortedByName}
         }
-
+        case SET_IS_FILTRATION_OPEN: {
+            return {...state, isFiltationOpen: action.isFiltationOpen}
+        }
+        case SET_FILTRATION_PARAM: {
+            return {...state, filtrationParam: action.filtrationParam}
+        }
         default:
             return state;
     }
@@ -77,6 +86,8 @@ export const setTotalPagesCount = (totalPagesCount) => ({type: SET_TOTAL_PAGES_C
 export const setIsColumn = (isColumn) => ({type: SET_IS_COLUMN, isColumn});
 export const setSearchValue = (searchValue) => ({type: SET_SEARCH_VALUE, searchValue});
 export const setIsSortedByName = (isSortedByName) => ({type: SET_IS_SORTED_BY_NAME, isSortedByName});
+export const setIsFiltrationOpen = (isFiltationOpen) => ({type: SET_IS_FILTRATION_OPEN, isFiltationOpen});
+export const setFiltrationParam = (filtrationParam) => ({type: SET_FILTRATION_PARAM, filtrationParam});
 
 
 export const fetchCharacters =(appService,dispatch) =>() => {
@@ -122,6 +133,16 @@ export const fetchTotalPagesCount = (dispatch) => (totalPagesCount)  => {
 }
 export const fetchIsSortedByName = (dispatch) => (isSortedByName) => {
     dispatch(setIsSortedByName(isSortedByName));
+}
+export const fetchIsFiltrationOpen = (dispatch) => (isFiltationOpen) => {
+    dispatch(setIsFiltrationOpen(isFiltationOpen));
+}
+export const fetchFiltrationParam = (appService,dispatch) => (filtrationParam) => {
+    dispatch(setFiltrationParam(filtrationParam));
+    dispatch(charactersRequested());
+    appService.getFilteredCharacters(filtrationParam)
+        .then((data) => dispatch(setCharacters(data)))
+        .catch((error) => dispatch(setError(error)))
 }
 
 export default characterReducer;

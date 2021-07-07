@@ -14,10 +14,13 @@ import Button from "@material-ui/core/Button";
 import LayerIcon from "@material-ui/icons/Layers";
 import {Link} from "react-router-dom";
 import {Pagination} from "@material-ui/lab";
+import FiltrationOptionsField from "../common/FiltrationOptionsField";
 
 
 
-const CharacterCardList = ({characters, totalPagesCount, currentPage, fetchCurrentPage, isColumn, fetchIsColumn,isSortedByName,fetchIsSortedByName}) => {
+const CharacterCardList = ({characters, totalPagesCount, currentPage, fetchCurrentPage, isColumn,
+     fetchIsColumn,isSortedByName,fetchIsSortedByName,isFiltationOpen,fetchIsFiltrationOpen,
+     filtrationParam,fetchFiltrationParam}) => {
     const showCurrentPage = (pageNumber) => {
         fetchCurrentPage(pageNumber);
     }
@@ -44,6 +47,11 @@ const CharacterCardList = ({characters, totalPagesCount, currentPage, fetchCurre
                    <Button onClick={() => sortHandler(true)}>Отсортировать по имени</Button>}
                 </ButtonGroup>
             </Typography>
+            
+            <FiltrationOptionsField isFiltationOpen={isFiltationOpen}
+                                    fetchIsFiltrationOpen={fetchIsFiltrationOpen}
+                                    filtrationParam={filtrationParam}
+                                    fetchFiltrationParam={fetchFiltrationParam}/>
 
             {isColumn ? <div className={classes.root}>
                 <Paper className={classes.paper}>

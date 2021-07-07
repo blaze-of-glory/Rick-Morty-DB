@@ -1,6 +1,6 @@
 import currentCharacterFiltration from "../../utils/currentCharacterFiltration";
 import searchFiltration from "../../utils/searchFiltration";
-import paginationFiltration from "../../utils/paginationFiltration";
+import genderFiltration from "../../utils/genderFiltration";
 
 export default class AppService {
     data = [
@@ -420,5 +420,14 @@ export default class AppService {
             },700)
         })
     }
+    getFilteredCharacters(filtrationParam){
+        return new Promise((resolve, reject) => {
+            setTimeout(()=>{
+                resolve(genderFiltration(this.data,filtrationParam))
+                //reject(new Error('404'))
+            },700)
+        })
+    }
+
 
 }
