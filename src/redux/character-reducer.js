@@ -90,9 +90,6 @@ export const fetchCurrentCharacter = (appService,dispatch) => (number,currentCha
 
 export const fetchCurrentPage = (appService, dispatch) => (currentPage) => {
     dispatch(setCurrentPage(currentPage))
-    appService.getCharacters(currentPage)
-        .then((data) => dispatch(setCharacters(data)))
-        .catch((error) => dispatch(setError(error)))
 }
 
 export const fetchIsColumn = (dispatch) => (isColumn) => {

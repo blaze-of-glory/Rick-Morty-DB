@@ -20,7 +20,6 @@ class CharactersCardsListContainer extends Component {
         this.props.fetchCharacters();
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log(`did upd list`);
         this.props.fetchTotalCharactersCount(this.props.characters);
         const pagesCount = Math.ceil(this.props.totalCharactersCount/this.props.pageSize);
         this.props.fetchTotalPagesCount(pagesCount);
