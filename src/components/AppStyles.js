@@ -4,25 +4,24 @@ export const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1
     },
-    menuButton: {
-        marginRight: theme.spacing(1)
-    },
     title: {
-        flexGrow: 1
+        flexGrow: 1,
+        marginRight: theme.spacing(4)
     },
     mainPosts: {
         position: "relative",
-        color: theme.palette.common.white,
+        color: theme.palette.common.black,
         marginBottom: theme.spacing(4),
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
+        height: "100vh",
 
     },
     mainPostsContent: {
         position: "relative",
         padding: theme.spacing(6),
-        marginTop: theme.spacing(8)
+        marginTop: theme.spacing(8),
 
     },
     cardMedia: {

@@ -35,16 +35,17 @@ const CharacterCardList = ({characters, totalPagesCount, currentPage, fetchCurre
         <Container className={classes.cardGrid} maxWidth="lg">
             <Typography align="center" className={classes.switchDisplayBtns}>
                 <ButtonGroup color="primary" aria-label="outlined primary button group">
-                    {isColumn?<Button onClick={() => toggleHandler(false)}>Plates</Button>
+                    {isColumn?<Button onClick={() => toggleHandler(false)}>Плитка</Button>
                     :
-                    <Button onClick={() => toggleHandler(true)}>Table</Button>}
+                    <Button onClick={() => toggleHandler(true)}>Таблица</Button>}
+                    {isSortedByName?<Button onClick={() => sortHandler(false)}>Отсортировать по id</Button>
+                        :
+                        <Button onClick={() => sortHandler(true)}>Отсортировать по имени</Button>}
                 </ButtonGroup>
             </Typography>
             <Typography align="center" className={classes.switchDisplayBtns}>
                 <ButtonGroup color="primary" aria-label="outlined primary button group">
-                   {isSortedByName?<Button onClick={() => sortHandler(false)}>Отсортировать по id</Button>
-                   :
-                   <Button onClick={() => sortHandler(true)}>Отсортировать по имени</Button>}
+
                 </ButtonGroup>
             </Typography>
             
@@ -92,7 +93,7 @@ const CharacterCardList = ({characters, totalPagesCount, currentPage, fetchCurre
                     <Grid item key={el.id} xs={12} sm={6} md={4}>
                         <Card className={classes.card}>
                             <CardMedia className={classes.cardMedia} image={el.image}
-                                       title="ImageTitle"/>
+                                       title={el.name}/>
                             <CardContent className={classes.cardContent}>
                                 <Typography variant="h5" align="center" gutterBottom>{el.name}</Typography>
                             </CardContent>

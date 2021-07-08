@@ -1,8 +1,7 @@
-import {AppBar, Box, Container, IconButton, InputBase, Toolbar, Typography} from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
-import Button from "@material-ui/core/Button";
+import {AppBar, Container, IconButton, InputBase, Toolbar, Typography} from "@material-ui/core";
 import {useStyles} from "../components/AppStyles";
 import SearchIcon from '@material-ui/icons/Search';
+import HomeIcon from '@material-ui/icons/Home';
 
 
 const Header = ({searchValue,fetchSearchValue}) => {
@@ -12,12 +11,12 @@ const Header = ({searchValue,fetchSearchValue}) => {
     }
     return(
         <AppBar position="fixed">
-            <Container fixed>
+            <Container maxWidth="lg">
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu" className={classes.menuButton}>
-                        <MenuIcon></MenuIcon>
+                        <HomeIcon fontSize="large"/>
                     </IconButton>
-                    <Typography variant="h6" className={classes.title}>Rick&Morty DB</Typography>
+                    <Typography variant="h6" className={classes.title}>R&M DB</Typography>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />
@@ -32,10 +31,6 @@ const Header = ({searchValue,fetchSearchValue}) => {
                             onChange={(e) => handleSearch(e)}
                         />
                     </div>
-                    <Box mr={3}>
-                        <Button color="inherit" variant="outlined">Log In</Button>
-                    </Box>
-                    <Button color="secondary" variant="contained">Sign Up</Button>
                 </Toolbar>
             </Container>
         </AppBar>

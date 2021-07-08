@@ -7,13 +7,8 @@ import { fetchSearchResult, fetchSearchValue} from "../redux/character-reducer";
 
 
 class HeaderContainer extends Component {
-    componentDidMount() {
-       /* const {pageSize,currentPage,searchValue} = this.props;
-        this.props.fetchSearchResult(pageSize,currentPage,searchValue); */
-    }
     componentDidUpdate(prevProps, prevState, snapshot) {
         this.props.fetchSearchResult(this.props.searchValue);
-        console.log(`did upd serach`);
     }
 
     render() {
