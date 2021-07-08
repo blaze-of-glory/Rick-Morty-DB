@@ -1,6 +1,5 @@
 import {Switch,Route} from "react-router-dom";
 import MainPage from "./pages/mainPage/MainPage";
-import CardDetails from "./pages/card-details/CardDetails";
 import CardDetailsContainer from "./pages/card-details/CardDetailsContainer";
 
 

@@ -25,7 +25,6 @@ export const useStyles = makeStyles((theme) => ({
 
     },
     cardMedia: {
-        //paddingTop: "56.25%"
         paddingTop: "100%"
     },
     cardContent: {
@@ -35,7 +34,8 @@ export const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(4)
     },
     pagination: {
-        marginTop: theme.spacing(4)
+        marginTop: theme.spacing(4),
+        marginBottom: theme.spacing(4)
     },
     switchDisplayBtns: {
         marginBottom: theme.spacing(4)
@@ -80,4 +80,10 @@ export const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
         minWidth: 120,
       },
+    preloader: {
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center",
+        height: "100vh"
+    },
 }))

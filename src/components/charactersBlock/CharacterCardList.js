@@ -34,13 +34,13 @@ const CharacterCardList = ({characters, totalPagesCount, currentPage, fetchCurre
     const classes = useStyles();
     return <>
         {characters.length ===0?
-             <footer>
+             <div>
                 <Box px={{xs:3, sm:10}} py={{xs:5,sm:10}}>
                     <Box textAlign="center" pt={{xs:5,md:10}} pb={{xs:5,sm:0}}>
                         Поиск не дал результатов.
                     </Box>
                 </Box>
-            </footer>
+            </div>
             :
              <Container className={classes.cardGrid} maxWidth="lg">
                 <Typography align="center" className={classes.switchDisplayBtns}>

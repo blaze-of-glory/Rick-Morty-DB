@@ -1,18 +1,9 @@
-import {makeStyles} from "@material-ui/core/styles";
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        justifyContent: "center",
-        marginTop: theme.spacing(4),
-        marginBottom: theme.spacing(4)
-    },
-}));
+import {useStyles} from "../../AppStyles";
 const Preloader = () => {
     const classes = useStyles();
     return(
-        <div className={classes.root}>
+        <div className={classes.preloader}>
             <CircularProgress />
         </div>
     )

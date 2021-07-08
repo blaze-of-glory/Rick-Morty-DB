@@ -1,19 +1,20 @@
 import {Card, CardContent, CardMedia, Container, Grid, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";
-import "./CardDetails.css";
 import Preloader from "../../components/common/preloader/Preloader";
 
 const useStyles = makeStyles((theme) => ({
     cardMedia: {
         paddingTop: "56.25%"
-        //paddingTop: "100%"
     },
     cardContent: {
         flexGrow: 1,
     },
     cardGrid: {
         marginTop: theme.spacing(15)
+    },
+    cardDetailsWrapper: {
+        marginBottom: theme.spacing(4)
     }
 }))
 
@@ -24,8 +25,8 @@ const CardDetails = ({currentCharacter}) => {
         <>
             {!character && <Preloader/>}
             {character &&
-            <div className="cardDetails__Wrapper">
-                <div className="cardDetails__Container">
+            <div className={classes.cardDetailsWrapper}>
+                <div>
                     <Container className={classes.cardGrid} maxWidth="lg">
                         <Grid container spacing={4} justify="center">
                             <Grid item key={character.id} xs={12} sm={6} md={8}>
