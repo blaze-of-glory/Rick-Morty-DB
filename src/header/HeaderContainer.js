@@ -8,7 +8,7 @@ import { fetchSearchResult, fetchSearchValue} from "../redux/character-reducer";
 
 class HeaderContainer extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
-        this.props.fetchSearchResult(this.props.searchValue);
+        this.props.fetchSearchResult(this.props.searchValue,this.props.filtrationParam);
     }
 
     render() {
@@ -20,8 +20,8 @@ class HeaderContainer extends Component {
     }
 }
 
-const mapStateToProps = ({searchValue}) => {
-    return {searchValue}
+const mapStateToProps = ({searchValue,filtrationParam}) => {
+    return {searchValue,filtrationParam}
 }
 
 const mapDispatchToProps = (dispatch, {appService}) => {

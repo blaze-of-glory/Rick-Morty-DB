@@ -412,10 +412,10 @@ export default class AppService {
             },700)
         })
     }
-    getSearchedCharacters(searchValue) {
+    getSearchedCharacters(searchValue,filtrationParam) {
         return new Promise((resolve, reject) => {
             setTimeout(()=>{
-                resolve(searchFiltration(this.data,searchValue))
+                resolve(searchFiltration(genderFiltration(this.data,filtrationParam),searchValue))
                 //reject(new Error('404'))
             },700)
         })

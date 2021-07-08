@@ -117,9 +117,9 @@ export  const fetchSearchValue = (dispatch) => (searchValue) => {
     dispatch(setSearchValue(searchValue))
 }
 
-export const fetchSearchResult = (appService, dispatch) => (searchValue) => {
+export const fetchSearchResult = (appService, dispatch) => (searchValue,filtrationParam) => {
     dispatch(charactersRequested());
-    appService.getSearchedCharacters(searchValue)
+    appService.getSearchedCharacters(searchValue,filtrationParam)
         .then((data) => dispatch(setCharacters(data)))
         .catch((error) => dispatch(setError(error)))
 }

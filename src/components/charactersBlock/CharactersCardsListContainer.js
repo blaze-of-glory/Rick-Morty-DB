@@ -29,6 +29,7 @@ class CharactersCardsListContainer extends Component {
         this.props.fetchTotalPagesCount(pagesCount);
         if(this.props.searchValue.length === 0 && prevProps.searchValue !== this.props.searchValue) {
             this.props.fetchCharacters();
+            this.props.fetchFiltrationParam('all');
         }
     }
 
