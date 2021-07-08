@@ -12,8 +12,7 @@ const Banner = () => {
                         <div className={classes.mainPostsContent}>
                                 <Typography component="h1" variant="h3" color="inherit" align="center" gutterBottom>Welcome to
                                 Rick&Morty DB</Typography>
-                            <Typography variant="h5" color="inherit" align="center" paragraph>Нужно придумать сюда какой-то
-                                текст.</Typography>
+                            <Typography variant="h5" color="inherit" align="center" paragraph>Моя база данных персонажей Rick and Morty</Typography>
                         </div>
                     </Grid>
                 </Grid>
